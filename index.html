@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-Br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Eleições 2022 - 2º turno</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container py-4">
+        <h3 class="text-center">Eleições 2022 - 2º turno</h3>
+        <table class="table table-striped table-hover text-center mt-4">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">Candidato</th>
+                    <th scope="col">Votos</th>
+                    <th scope="col">Percentual</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider"></tbody>
+            <tfoot>
+                <tr class="table-dark">
+                    <th scope="col">Candidato</th>
+                    <th scope="col">Votos</th>
+                    <th scope="col">Percentual</th>
+                </tr>
+            </tfoot>
+        </table>
+        </table>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+
+    <script>
+        function busca() {
+            $.getJSON('https://resultados.tse.jus.br/oficial/ele2022/544/dados-simplificados/br/br-c0001-e000544-r.json', function (dados) {
+                if (!("erro" in dados)) {
+                    for (let i = 0; i < dados.cand.length; i++) {
+                        $('table tbody').append(`<tr><td>${dados.cand[i].nm}</td><td>${dados.cand[i].vap}</td><td>${dados.cand[i].pvap}%</td></tr>`);
+                    }
+                }
+            });
+        }
+
+        busca();
+
+        setInterval(function () {
+            busca();
+        }, 60000);
+    </script>
+</body>
+
+</html>
